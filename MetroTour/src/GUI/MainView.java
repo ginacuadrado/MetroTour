@@ -5,6 +5,10 @@
  */
 package GUI;
 
+import javax.swing.JLabel;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+
 /**
  *
  * @author pc ready
@@ -22,8 +26,65 @@ public class MainView extends javax.swing.JFrame {
         this.maximos= maximos;
         this.disponibles= recursos;
         this.asignacion=maximos;
-        
+  
         initComponents();
+        
+        //JTextFields para rellenar la matriz de requerimientos máximos
+        JTextField text[][] = new JTextField[getFilas()-1][getColumnas()-1];
+              
+        //Formateo de los JTextFields dentro de un JPanel con etiquetas
+        for (int i = 0; i < getFilas(); i++) {
+            for(int j = 0; j < getColumnas(); j++){
+                if(i==0){
+                    if(j==0){
+                        JLabel vacio = new JLabel(" ");
+                        jPanel1.add(vacio);
+                    } else {
+                        JLabel ruta = new JLabel("Ruta "+j);
+                        ruta.setFont(new java.awt.Font("Segoe UI Symbol", 1, 9));
+                        jPanel1.add(ruta);
+                    }
+                }else{
+                    if(j!=0){
+                        text[i-1][j-1] = new JTextField("("+(i-1)+","+(j-1)+")");
+                        jPanel1.add(text[i-1][j-1]);
+                    }else{
+                        JLabel orden = new JLabel("Orden "+i);
+                        orden.setFont(new java.awt.Font("Segoe UI Symbol", 1, 9));
+                        jPanel1.add(orden);
+                    }
+                }
+            }
+        }
+        
+        JTextField text2[] = new JTextField[getColumnas()-1];
+        
+        for (int i = 0; i < 2; i++) {
+            for(int j = 0; j < getColumnas(); j++){
+                if(i==0){
+                    if(j==0){
+                        JLabel vacio = new JLabel(" ");
+                        jPanel2.add(vacio);
+                    } else {
+                        JLabel ruta = new JLabel("Ruta "+j);
+                        ruta.setFont(new java.awt.Font("Segoe UI Symbol", 1, 9));
+                        jPanel2.add(ruta);
+                    }
+                }else{
+                    if(j!=0){
+                        text2[i-1] = new JTextField(""+(i-1));
+                        jPanel2.add(text2[i-1]);
+                    }else{
+                        JLabel camiones = new JLabel("Camiones");
+                        camiones.setFont(new java.awt.Font("Segoe UI Symbol", 1, 8));
+                        jPanel2.add(camiones);
+                    }
+                }
+            }
+        }
+                    
+        
+        revalidate();
     }
     
 
@@ -33,13 +94,13 @@ public class MainView extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         zBackground = new javax.swing.JLabel();
         zBackground1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1000, 600));
-        setPreferredSize(new java.awt.Dimension(1000, 600));
         setResizable(false);
         getContentPane().setLayout(null);
 
@@ -47,9 +108,15 @@ public class MainView extends javax.swing.JFrame {
         getContentPane().add(jLabel1);
         jLabel1.setBounds(420, -50, 320, 190);
 
-        jPanel1.setLayout(new java.awt.GridLayout(1, getColumnas()));
+        jPanel2.setBackground(new java.awt.Color(255, 255, 153));
+        jPanel2.setLayout(new java.awt.GridLayout(2, getColumnas()));
+        getContentPane().add(jPanel2);
+        jPanel2.setBounds(60, 180, 330, 70);
+
+        jPanel1.setBackground(new java.awt.Color(255, 255, 153));
+        jPanel1.setLayout(new java.awt.GridLayout(getFilas(), getColumnas()));
         getContentPane().add(jPanel1);
-        jPanel1.setBounds(70, 120, 240, 70);
+        jPanel1.setBounds(60, 290, 330, 250);
 
         zBackground.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/WhiteBackground.jpg"))); // NOI18N
         getContentPane().add(zBackground);
@@ -100,19 +167,18 @@ public class MainView extends javax.swing.JFrame {
     }
     
     public int getColumnas() {
-         System.out.println(this.maximos[0].length);
-         return this.maximos[0].length;
-       
+         return this.maximos[0].length+1;
     }
     
      public int getFilas() {
-        return this.maximos.length;
+        return this.maximos.length+1;
     }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel zBackground;
     private javax.swing.JLabel zBackground1;
     // End of variables declaration//GEN-END:variables
