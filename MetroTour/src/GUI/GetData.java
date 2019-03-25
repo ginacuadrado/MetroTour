@@ -1,6 +1,8 @@
 
 package GUI;
 
+import static javax.swing.JOptionPane.showMessageDialog;
+
 
 public class GetData extends javax.swing.JFrame {
  
@@ -20,14 +22,14 @@ public class GetData extends javax.swing.JFrame {
         Enunciado = new javax.swing.JLabel();
         RutasEmpresa = new javax.swing.JTextField();
         PedidosRealizar = new javax.swing.JTextField();
-        CamionesEnCadaRuta = new javax.swing.JTextField();
-        CamionesPorRuta = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
         Siguiente = new javax.swing.JButton();
         Logo = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        Close = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
         Background = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -37,7 +39,8 @@ public class GetData extends javax.swing.JFrame {
         setLocation(new java.awt.Point(200, 200));
         setMaximumSize(new java.awt.Dimension(500, 500));
         setMinimumSize(new java.awt.Dimension(500, 500));
-        setPreferredSize(new java.awt.Dimension(600, 600));
+        setUndecorated(true);
+        setPreferredSize(new java.awt.Dimension(600, 450));
         setResizable(false);
         getContentPane().setLayout(null);
 
@@ -60,38 +63,12 @@ public class GetData extends javax.swing.JFrame {
             }
         });
         getContentPane().add(PedidosRealizar);
-        PedidosRealizar.setBounds(330, 350, 220, 30);
-
-        CamionesEnCadaRuta.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CamionesEnCadaRutaActionPerformed(evt);
-            }
-        });
-        getContentPane().add(CamionesEnCadaRuta);
-        CamionesEnCadaRuta.setBounds(330, 400, 220, 30);
-
-        CamionesPorRuta.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CamionesPorRutaActionPerformed(evt);
-            }
-        });
-        getContentPane().add(CamionesPorRuta);
-        CamionesPorRuta.setBounds(330, 300, 220, 30);
+        PedidosRealizar.setBounds(330, 300, 220, 30);
 
         jLabel2.setFont(new java.awt.Font("Segoe UI Symbol", 1, 14)); // NOI18N
         jLabel2.setText("Cantidad de pedidos a realizar:");
         getContentPane().add(jLabel2);
-        jLabel2.setBounds(70, 350, 330, 20);
-
-        jLabel7.setFont(new java.awt.Font("Segoe UI Symbol", 1, 14)); // NOI18N
-        jLabel7.setText("Cantidad de camiones por cada ruta:");
-        getContentPane().add(jLabel7);
-        jLabel7.setBounds(30, 400, 330, 20);
-
-        jLabel8.setFont(new java.awt.Font("Segoe UI Symbol", 1, 14)); // NOI18N
-        jLabel8.setText("Cantidad de camiones por ruta:");
-        getContentPane().add(jLabel8);
-        jLabel8.setBounds(70, 300, 330, 20);
+        jLabel2.setBounds(70, 300, 330, 20);
 
         Siguiente.setBackground(new java.awt.Color(255, 204, 0));
         Siguiente.setFont(new java.awt.Font("Rockwell", 1, 18)); // NOI18N
@@ -103,46 +80,105 @@ public class GetData extends javax.swing.JFrame {
             }
         });
         getContentPane().add(Siguiente);
-        Siguiente.setBounds(230, 470, 140, 40);
+        Siguiente.setBounds(230, 350, 140, 40);
 
         Logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Dust Road Co..png"))); // NOI18N
         getContentPane().add(Logo);
-        Logo.setBounds(150, -20, 450, 200);
+        Logo.setBounds(150, -10, 300, 200);
 
         jLabel5.setFont(new java.awt.Font("Segoe UI Symbol", 1, 14)); // NOI18N
         jLabel5.setText("Cantidad de rutas de la empresa:");
         getContentPane().add(jLabel5);
         jLabel5.setBounds(60, 250, 330, 20);
 
+        jLabel3.setText("(Mínimo 2, Máximo 6)");
+        getContentPane().add(jLabel3);
+        jLabel3.setBounds(70, 320, 160, 14);
+
+        Close.setBackground(new java.awt.Color(255, 204, 0));
+        Close.setText("Cerrar");
+        Close.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CloseActionPerformed(evt);
+            }
+        });
+        getContentPane().add(Close);
+        Close.setBounds(520, 0, 80, 30);
+
+        jLabel4.setText("(Mínimo 2, Máximo 6)");
+        getContentPane().add(jLabel4);
+        jLabel4.setBounds(60, 280, 160, 14);
+
+        jLabel1.setBackground(new java.awt.Color(0, 0, 0));
+        jLabel1.setText("jLabel1");
+        getContentPane().add(jLabel1);
+        jLabel1.setBounds(414, 210, 160, 10);
+
         Background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/WhiteBackground.jpg"))); // NOI18N
         Background.setText("jLabel7");
         getContentPane().add(Background);
-        Background.setBounds(-10, -10, 620, 610);
+        Background.setBounds(-10, -10, 620, 550);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void RutasEmpresaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RutasEmpresaActionPerformed
-       
+
+                 
     }//GEN-LAST:event_RutasEmpresaActionPerformed
 
     private void SiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SiguienteActionPerformed
     
+            String rutas = RutasEmpresa.getText().trim();
+            String pedidos = PedidosRealizar.getText().trim();
+                   
          
+            //Validación si el jtext field está vacío o contiene alguna caracter diferente de números
+            if(rutas.equals("")||pedidos.equals("")||!rutas.matches("\\d+")||!pedidos.matches("\\d+"))
+            {
+                showMessageDialog(null,"Los datos ingresados no pueden ser utilizados");
+                RutasEmpresa.setText(null);
+                PedidosRealizar.setText(null);
+            }
             
+            else
+            {
+               //Convierto en int para comparar valores numéricos
+                int a = Integer.parseInt(rutas);
+                int b = Integer.parseInt(pedidos);
+                
+                //Validación mínimo 2 y máximo 6 de cada campo
+                if(a<=1||a>7||b>7||b<=1)
+                {
+                    showMessageDialog(null,"Por favor solo ingrese datos numéricos enteros entre 2 y 6 en cada campo");
+                    RutasEmpresa.setText(null);
+                    PedidosRealizar.setText(null); 
+                }
+                else
+                {
+                    setVisible(false);  //Oculta la vista getData
+                    
+                    int recursos[] = new int[a];         
+                    int maximos[][] = new int[a][b]; 
+                    
+                   //Abrir MainView que realizará las operaciones
+                    MainView mv = new MainView(recursos,maximos);
+                    mv.setVisible(true);
+                    
+                }
+            }
+  
+       
     }//GEN-LAST:event_SiguienteActionPerformed
 
     private void PedidosRealizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PedidosRealizarActionPerformed
        
     }//GEN-LAST:event_PedidosRealizarActionPerformed
 
-    private void CamionesEnCadaRutaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CamionesEnCadaRutaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_CamionesEnCadaRutaActionPerformed
-
-    private void CamionesPorRutaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CamionesPorRutaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_CamionesPorRutaActionPerformed
+    private void CloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CloseActionPerformed
+        int n=0;
+        System.exit(n);
+    }//GEN-LAST:event_CloseActionPerformed
     
 
     
@@ -188,17 +224,17 @@ public class GetData extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Background;
-    private javax.swing.JTextField CamionesEnCadaRuta;
-    private javax.swing.JTextField CamionesPorRuta;
+    private javax.swing.JButton Close;
     private javax.swing.JLabel Enunciado;
     private javax.swing.JLabel Logo;
     private javax.swing.JTextField PedidosRealizar;
     private javax.swing.JTextField RutasEmpresa;
     private javax.swing.JButton Siguiente;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     // End of variables declaration//GEN-END:variables
 
    

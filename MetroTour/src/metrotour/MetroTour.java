@@ -1,17 +1,12 @@
 
 package metrotour;
-
 import GUI.GetData;
 
-/**
- *
- * @author pc ready
- */
+//En esta clase se implementa el algoritmo del banquero
 public class MetroTour {
 
-    /**
-     * @param args the command line arguments
-     */
+    
+    
     public static void main(String[] args) {
         GetData g = new GetData();
         g.setVisible(true);
