@@ -145,7 +145,7 @@ public class GetData extends javax.swing.JFrame {
                 int b = Integer.parseInt(pedidos);
                 
                 //Validación mínimo 2 y máximo 6 de cada campo
-                if(a<=0||a>7||b>7||b<=0)
+                if(a<=1||a>7||b>7||b<=1)
                 {
                     showMessageDialog(null,"Por favor solo ingrese datos numéricos enteros entre 1 y 6 en cada campo");
                     RutasEmpresa.setText(null);
@@ -155,7 +155,7 @@ public class GetData extends javax.swing.JFrame {
                 {
                     setVisible(false);  //Oculta la vista getData
                     
-                    int recursos[] = new int[b];         
+                    int recursos[] = new int[a];         
                     int maximos[][] = new int[b][a]; 
                     
                    //Abrir MainView que realizará las operaciones

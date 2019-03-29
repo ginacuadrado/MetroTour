@@ -18,8 +18,8 @@ import javax.swing.JTextField;
 public class MainView extends javax.swing.JFrame {
 
     //Declaración de las matrices
-    int recursos[], maximos[][];
-    int disponibles[], asignacion[][];
+    private int recursos[], maximos[][];
+    private int asignacion[][];
     JTextField text[][];
     JTextField text2[];
     
@@ -28,7 +28,6 @@ public class MainView extends javax.swing.JFrame {
         //Inicialización de matrices
         this.recursos = recursos;
         this.maximos = maximos;
-        this.disponibles = recursos;
         this.asignacion = maximos;
   
         initComponents();
@@ -190,7 +189,7 @@ public class MainView extends javax.swing.JFrame {
             jButton1.setEnabled(false);
             
             //Bloquear los jTextFields del vector y la matriz para evitar que se alteren os valores en medio de la
-            //ejecucion por cause de un input de usuario
+            //ejecucion por causa de un input de usuario
             
             for(int i = 0; i < text.length; i++){
                 for(int j = 0; j < text[0].length; j++){
@@ -211,7 +210,37 @@ public class MainView extends javax.swing.JFrame {
                 recursos[i] = Integer.parseInt(text2[i].getText());
             }
             
-            Algoritmo banquero =  new Algoritmo();
+            //Validacion para que los valores maximos no superen la cantidad de tipos de recursos existentes
+            //String para almacenar errores en la asignacion de maximos
+            String msg = "";
+            
+            for(int j = 0; j < recursos.length; j++){
+                for(int i = 0; i < maximos.length; i++){
+                    if(recursos[j] < maximos[i][j]){
+                        msg = msg + "\n• El número de camiones asignados en la Ruta "+(j+1)+" para la Orden "+(i+1)+" supera el máximo disponible.";
+                        check++;
+                    }
+                }
+            }
+            
+            //Si se consiguen errores en la cantidad de tipos de recurso asignados, se reportan los errores y se
+            //vuelven a habilitar los campos, de lo contrario se prosigue con la ejecucion del algoritmo.
+            if(check == 0){
+                Algoritmo banquero =  new Algoritmo(maximos, asignacion, recursos);
+            } else {
+                showMessageDialog(null,"Se han encontrado los siguientes errores:" + msg);
+                jButton1.setEnabled(true);
+                
+                for(int i = 0; i < text.length; i++){
+                    for(int j = 0; j < text[0].length; j++){
+                        text[i][j].setEditable(true);
+                    }
+                }
+                
+                for(int i = 0; i < text2.length; i++){
+                    text2[i].setEditable(true);
+                }
+            }
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
