@@ -29,7 +29,6 @@ public class GetData extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         Close = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
         Background = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -37,7 +36,7 @@ public class GetData extends javax.swing.JFrame {
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setForeground(java.awt.Color.white);
         setLocation(new java.awt.Point(200, 200));
-        setMaximumSize(new java.awt.Dimension(500, 500));
+        setMaximumSize(new java.awt.Dimension(600, 450));
         setMinimumSize(new java.awt.Dimension(500, 500));
         setUndecorated(true);
         setPreferredSize(new java.awt.Dimension(600, 450));
@@ -68,7 +67,7 @@ public class GetData extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Segoe UI Symbol", 1, 14)); // NOI18N
         jLabel2.setText("Cantidad de pedidos a realizar:");
         getContentPane().add(jLabel2);
-        jLabel2.setBounds(70, 300, 330, 20);
+        jLabel2.setBounds(60, 300, 330, 20);
 
         Siguiente.setBackground(new java.awt.Color(255, 204, 0));
         Siguiente.setFont(new java.awt.Font("Rockwell", 1, 18)); // NOI18N
@@ -93,7 +92,7 @@ public class GetData extends javax.swing.JFrame {
 
         jLabel3.setText("(Mínimo 2, Máximo 6)");
         getContentPane().add(jLabel3);
-        jLabel3.setBounds(70, 320, 160, 14);
+        jLabel3.setBounds(60, 320, 160, 14);
 
         Close.setBackground(new java.awt.Color(255, 204, 0));
         Close.setText("Cerrar");
@@ -107,17 +106,15 @@ public class GetData extends javax.swing.JFrame {
 
         jLabel4.setText("(Mínimo 2, Máximo 6)");
         getContentPane().add(jLabel4);
-        jLabel4.setBounds(60, 280, 160, 14);
-
-        jLabel1.setBackground(new java.awt.Color(0, 0, 0));
-        jLabel1.setText("jLabel1");
-        getContentPane().add(jLabel1);
-        jLabel1.setBounds(414, 210, 160, 10);
+        jLabel4.setBounds(60, 270, 160, 14);
 
         Background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/WhiteBackground.jpg"))); // NOI18N
         Background.setText("jLabel7");
+        Background.setMaximumSize(new java.awt.Dimension(600, 450));
+        Background.setMinimumSize(new java.awt.Dimension(600, 450));
+        Background.setPreferredSize(new java.awt.Dimension(600, 450));
         getContentPane().add(Background);
-        Background.setBounds(-10, -10, 620, 550);
+        Background.setBounds(-10, -10, 620, 440);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -158,8 +155,8 @@ public class GetData extends javax.swing.JFrame {
                 {
                     setVisible(false);  //Oculta la vista getData
                     
-                    int recursos[] = new int[a];         
-                    int maximos[][] = new int[a][b]; 
+                    int recursos[] = new int[b];         
+                    int maximos[][] = new int[b][a]; 
                     
                    //Abrir MainView que realizará las operaciones
                     MainView mv = new MainView(recursos,maximos);
@@ -230,7 +227,6 @@ public class GetData extends javax.swing.JFrame {
     private javax.swing.JTextField PedidosRealizar;
     private javax.swing.JTextField RutasEmpresa;
     private javax.swing.JButton Siguiente;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

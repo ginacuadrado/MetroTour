@@ -57,8 +57,10 @@ public class MainView extends javax.swing.JFrame {
             }
         }
         
+        //JTextField para rellenar el vector de recursos (camiones)
         JTextField text2[] = new JTextField[getColumnas()-1];
         
+        //Formateo de los JTextFields dentro de un JPanel con etiquetas
         for (int i = 0; i < 2; i++) {
             for(int j = 0; j < getColumnas(); j++){
                 if(i==0){
@@ -82,8 +84,6 @@ public class MainView extends javax.swing.JFrame {
                 }
             }
         }
-                    
-        
         revalidate();
     }
     
