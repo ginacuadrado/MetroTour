@@ -5,7 +5,9 @@
  */
 package GUI;
 
+import Controllers.Algoritmo;
 import javax.swing.JLabel;
+import static javax.swing.JOptionPane.showMessageDialog;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
@@ -17,20 +19,22 @@ public class MainView extends javax.swing.JFrame {
 
     //Declaración de las matrices
     int recursos[], maximos[][];
-    int disponibles[],asignacion[][];
+    int disponibles[], asignacion[][];
+    JTextField text[][];
+    JTextField text2[];
     
     public MainView(int recursos[], int maximos[][]) 
     {
         //Inicialización de matrices
-        this.recursos= recursos;
-        this.maximos= maximos;
-        this.disponibles= recursos;
-        this.asignacion=maximos;
+        this.recursos = recursos;
+        this.maximos = maximos;
+        this.disponibles = recursos;
+        this.asignacion = maximos;
   
         initComponents();
         
         //JTextFields para rellenar la matriz de requerimientos máximos
-        JTextField text[][] = new JTextField[getFilas()-1][getColumnas()-1];
+        this.text = new JTextField[getFilas()-1][getColumnas()-1];
               
         //Formateo de los JTextFields dentro de un JPanel con etiquetas
         for (int i = 0; i < getFilas(); i++) {
@@ -46,7 +50,7 @@ public class MainView extends javax.swing.JFrame {
                     }
                 }else{
                     if(j!=0){
-                        text[i-1][j-1] = new JTextField("("+(i-1)+","+(j-1)+")");
+                        text[i-1][j-1] = new JTextField("0");
                         jPanel1.add(text[i-1][j-1]);
                     }else{
                         JLabel orden = new JLabel("Orden "+i);
@@ -58,7 +62,7 @@ public class MainView extends javax.swing.JFrame {
         }
         
         //JTextField para rellenar el vector de recursos (camiones)
-        JTextField text2[] = new JTextField[getColumnas()-1];
+        this.text2 = new JTextField[getColumnas()-1];
         
         //Formateo de los JTextFields dentro de un JPanel con etiquetas
         for (int i = 0; i < 2; i++) {
@@ -74,8 +78,8 @@ public class MainView extends javax.swing.JFrame {
                     }
                 }else{
                     if(j!=0){
-                        text2[i-1] = new JTextField(""+(i-1));
-                        jPanel2.add(text2[i-1]);
+                        text2[j-1] = new JTextField("0");
+                        jPanel2.add(text2[j-1]);
                     }else{
                         JLabel camiones = new JLabel("Camiones");
                         camiones.setFont(new java.awt.Font("Segoe UI Symbol", 1, 8));
@@ -93,6 +97,7 @@ public class MainView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jButton1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
@@ -100,9 +105,18 @@ public class MainView extends javax.swing.JFrame {
         zBackground1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMinimumSize(new java.awt.Dimension(1000, 600));
+        setMinimumSize(new java.awt.Dimension(923, 1200));
         setResizable(false);
         getContentPane().setLayout(null);
+
+        jButton1.setText("Ejecutar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton1);
+        jButton1.setBounds(190, 560, 73, 23);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Dust Road Co..png"))); // NOI18N
         getContentPane().add(jLabel1);
@@ -128,6 +142,78 @@ public class MainView extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        
+        //Variable local de control
+        int check = 0;
+        String temp;
+        boolean check1 = true, check2 = true;
+        
+        //Validación de que el contenido de la matriz sea solo dígitos
+        for(int i = 0; i < text.length; i++){
+            for (int j = 0; j < text[0].length; j++){
+                
+                temp = text[i][j].getText();
+                
+                if((temp.equals(""))||!(temp.matches("\\d+"))){
+                    if(check == 0){
+                        check++;
+                        check1 = false;
+                    }
+                    text[i][j].setText("0");
+                }
+            }
+        }
+        
+        //Validación de que el contenido del vector sea solo dígitos
+        for(int i = 0; i < text2.length; i++){
+            temp = text2[i].getText();
+            
+            if((temp.equals(""))||!(temp.matches("\\d+"))){
+                if(check <= 1){
+                    check++;
+                    check2 = false;
+                }
+                text2[i].setText("0");
+            }
+        }
+        
+        //Mensaje de error en caso de que algun dato no sea valido
+        if(check >= 1){
+            showMessageDialog(null,"Los datos ingresados tienen que ser exclusivamente números enteros positivos ó 0");
+        }
+        
+        //Si se cumplen ambas condiciones, continuar con la ejecucion
+        if(check1 && check2){
+            //Bloquear boton para evitar que se active la funcion en medio de la ejecucion
+            jButton1.setEnabled(false);
+            
+            //Bloquear los jTextFields del vector y la matriz para evitar que se alteren os valores en medio de la
+            //ejecucion por cause de un input de usuario
+            
+            for(int i = 0; i < text.length; i++){
+                for(int j = 0; j < text[0].length; j++){
+                    text[i][j].setEditable(false);
+                    
+                    //Pasar el valor contenido en el jTextField [i][j] a su respectiva ubicacion [i][j] dentro de
+                    //la matriz maxima
+                    maximos[i][j] = Integer.parseInt(text[i][j].getText());
+                    System.out.println(""+maximos[i][j]);
+                }
+            }
+            
+            for(int i = 0; i < text2.length; i++) {
+                text2[i].setEditable(false);
+                
+                //Pasar el valor contenido en el jTextField [i] a su respectiva ubicación [i] dentro
+                //del vector de recursos
+                recursos[i] = Integer.parseInt(text2[i].getText());
+            }
+            
+            Algoritmo banquero =  new Algoritmo();
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -176,6 +262,7 @@ public class MainView extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;

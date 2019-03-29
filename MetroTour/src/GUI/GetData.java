@@ -145,9 +145,9 @@ public class GetData extends javax.swing.JFrame {
                 int b = Integer.parseInt(pedidos);
                 
                 //Validación mínimo 2 y máximo 6 de cada campo
-                if(a<=1||a>7||b>7||b<=1)
+                if(a<=0||a>7||b>7||b<=0)
                 {
-                    showMessageDialog(null,"Por favor solo ingrese datos numéricos enteros entre 2 y 6 en cada campo");
+                    showMessageDialog(null,"Por favor solo ingrese datos numéricos enteros entre 1 y 6 en cada campo");
                     RutasEmpresa.setText(null);
                     PedidosRealizar.setText(null); 
                 }
