@@ -235,7 +235,7 @@ public class MainView extends javax.swing.JFrame {
                     //Pasar el valor contenido en el jTextField [i][j] a su respectiva ubicacion [i][j] dentro de
                     //la matriz maxima
                     maximos[i][j] = Integer.parseInt(text[i][j].getText());
-                    System.out.println(""+maximos[i][j]);
+                    
                 }
             }
             
@@ -268,9 +268,7 @@ public class MainView extends javax.swing.JFrame {
                 int b= getFilas();      //Número de ordenes que hay
                 Algoritmo banquero =  new Algoritmo(maximos, asignacion, recursos,a,b);
               
-                
-               
-        
+
         //JTextField para rellenar el vector de recursos (camiones)
         this.text2 = new JTextField[getColumnas()-1];
         
