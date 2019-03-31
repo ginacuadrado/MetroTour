@@ -28,6 +28,7 @@ public class Algoritmo {
         
         //Actualizar la matriz de recursos disponibles
         this.disponibles = actualizarDisponibles(this.asignacion, this.recursos); 
+        this.necesarios(this.asignacion,this.maximos);
 
     }
     
@@ -190,9 +191,7 @@ public class Algoritmo {
         return necesarios;
     }
     
-    
-    
-    
+   
     
 }
        
