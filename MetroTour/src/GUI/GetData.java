@@ -36,10 +36,8 @@ public class GetData extends javax.swing.JFrame {
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setForeground(java.awt.Color.white);
         setLocation(new java.awt.Point(200, 200));
-        setMaximumSize(new java.awt.Dimension(600, 450));
-        setMinimumSize(new java.awt.Dimension(500, 500));
+        setMinimumSize(new java.awt.Dimension(600, 400));
         setUndecorated(true);
-        setPreferredSize(new java.awt.Dimension(600, 450));
         setResizable(false);
         getContentPane().setLayout(null);
 
@@ -81,9 +79,9 @@ public class GetData extends javax.swing.JFrame {
         getContentPane().add(Siguiente);
         Siguiente.setBounds(230, 350, 140, 40);
 
-        Logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Dust Road Co..png"))); // NOI18N
+        Logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Logo.png"))); // NOI18N
         getContentPane().add(Logo);
-        Logo.setBounds(150, -10, 300, 200);
+        Logo.setBounds(150, -10, 300, 180);
 
         jLabel5.setFont(new java.awt.Font("Segoe UI Symbol", 1, 14)); // NOI18N
         jLabel5.setText("Cantidad de rutas de la empresa:");
@@ -92,7 +90,7 @@ public class GetData extends javax.swing.JFrame {
 
         jLabel3.setText("(Mínimo 2, Máximo 6)");
         getContentPane().add(jLabel3);
-        jLabel3.setBounds(60, 320, 160, 14);
+        jLabel3.setBounds(60, 320, 160, 16);
 
         Close.setBackground(new java.awt.Color(255, 204, 0));
         Close.setText("Cerrar");
@@ -106,15 +104,15 @@ public class GetData extends javax.swing.JFrame {
 
         jLabel4.setText("(Mínimo 2, Máximo 6)");
         getContentPane().add(jLabel4);
-        jLabel4.setBounds(60, 270, 160, 14);
+        jLabel4.setBounds(60, 270, 160, 16);
 
-        Background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/WhiteBackground.jpg"))); // NOI18N
+        Background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Background.jpg"))); // NOI18N
         Background.setText("jLabel7");
         Background.setMaximumSize(new java.awt.Dimension(600, 450));
         Background.setMinimumSize(new java.awt.Dimension(600, 450));
         Background.setPreferredSize(new java.awt.Dimension(600, 450));
         getContentPane().add(Background);
-        Background.setBounds(-10, -10, 620, 440);
+        Background.setBounds(0, -260, 1280, 850);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -126,7 +124,10 @@ public class GetData extends javax.swing.JFrame {
 
     private void SiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SiguienteActionPerformed
     
+            //RutasEmpresa es los recursos que va a tener el algoritmo
             String rutas = RutasEmpresa.getText().trim();
+            
+            //PedidosRealizar es la cantidad de procesos que va a tener el algoritmo
             String pedidos = PedidosRealizar.getText().trim();
                    
          
@@ -165,7 +166,6 @@ public class GetData extends javax.swing.JFrame {
                 }
             }
   
-       
     }//GEN-LAST:event_SiguienteActionPerformed
 
     private void PedidosRealizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PedidosRealizarActionPerformed

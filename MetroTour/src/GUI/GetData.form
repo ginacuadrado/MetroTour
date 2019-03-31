@@ -5,7 +5,7 @@
     <Property name="defaultCloseOperation" type="int" value="2"/>
     <Property name="title" type="java.lang.String" value="Ingresar Datos"/>
     <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-      <Color id="Default Cursor"/>
+      <Color id="Cursor Por defecto"/>
     </Property>
     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
       <Color blue="ff" green="ff" id="white" palette="1" red="ff" type="palette"/>
@@ -14,7 +14,7 @@
       <Point value="[200, 200]"/>
     </Property>
     <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-      <Dimension value="[500, 500]"/>
+      <Dimension value="[600, 400]"/>
     </Property>
     <Property name="undecorated" type="boolean" value="true"/>
     <Property name="resizable" type="boolean" value="false"/>
@@ -111,12 +111,12 @@
     <Component class="javax.swing.JLabel" name="Logo">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/Images/Dust Road Co..png"/>
+          <Image iconType="3" name="/Images/Logo.png"/>
         </Property>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="150" y="-10" width="300" height="200"/>
+          <AbsoluteConstraints x="150" y="-10" width="300" height="180"/>
         </Constraint>
       </Constraints>
     </Component>
@@ -172,7 +172,7 @@
     <Component class="javax.swing.JLabel" name="Background">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/Images/WhiteBackground.jpg"/>
+          <Image iconType="3" name="/Images/Background.jpg"/>
         </Property>
         <Property name="text" type="java.lang.String" value="jLabel7"/>
         <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
@@ -187,7 +187,7 @@
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="-10" y="-10" width="620" height="440"/>
+          <AbsoluteConstraints x="0" y="-260" width="1280" height="850"/>
         </Constraint>
       </Constraints>
     </Component>
