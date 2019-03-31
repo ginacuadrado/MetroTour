@@ -20,8 +20,8 @@ public class MainView extends javax.swing.JFrame {
     //Declaración de las matrices
     private int recursos[], maximos[][];
     private int asignacion[][];
-    JTextField text[][];
-    JTextField text2[];
+    public static JTextField text[][];
+    public static JTextField text2[];
     
     public MainView(int recursos[], int maximos[][]) 
     {
@@ -180,37 +180,37 @@ public class MainView extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         
-        //Variable local de control
+       //Variable local de control
         int check = 0;
         String temp;
         boolean check1 = true, check2 = true;
         
-        //Validación de que el contenido de la matriz  sea solo de dígitos
-        for(int i = 0; i < text.length; i++){
-            for (int j = 0; j < text[0].length; j++){
+        //Validación de que el contenido de la matriz sea solo dígitos
+        for(int i = 0; i < this.text.length; i++){
+            for (int j = 0; j < this.text[0].length; j++){
                 
-                temp = text[i][j].getText();
+                temp = this.text[i][j].getText();
                 
                 if((temp.equals(""))||!(temp.matches("\\d+"))){
                     if(check == 0){
                         check++;
                         check1 = false;
                     }
-                    text[i][j].setText("0");
+                    this.text[i][j].setText("0");
                 }
             }
         }
         
         //Validación de que el contenido del vector sea solo dígitos
-        for(int i = 0; i < text2.length; i++){
-            temp = text2[i].getText();
+        for(int i = 0; i < this.text2.length; i++){
+            temp = this.text2[i].getText();
             
             if((temp.equals(""))||!(temp.matches("\\d+"))){
                 if(check <= 1){
                     check++;
                     check2 = false;
                 }
-                text2[i].setText("0");
+                this.text2[i].setText("0");
             }
         }
         
@@ -221,39 +221,37 @@ public class MainView extends javax.swing.JFrame {
         
         //Si se cumplen ambas condiciones, continuar con la ejecucion
         if(check1 && check2){
-            
             //Bloquear boton para evitar que se active la funcion en medio de la ejecucion
-            jButton1.setEnabled(false);
+            this.jButton1.setEnabled(false);
             
-            //Bloquear los jTextFields del vector y la matriz para evitar que se alteren los valores en medio de la
+            //Bloquear los jTextFields del vector y la matriz para evitar que se alteren os valores en medio de la
             //ejecucion por causa de un input de usuario
             
-            for(int i = 0; i < text.length; i++){
-                for(int j = 0; j < text[0].length; j++){
-                    text[i][j].setEditable(false);
+            for(int i = 0; i < this.text.length; i++){
+                for(int j = 0; j < this.text[0].length; j++){
+                    this.text[i][j].setEditable(false);
                     
                     //Pasar el valor contenido en el jTextField [i][j] a su respectiva ubicacion [i][j] dentro de
                     //la matriz maxima
-                    maximos[i][j] = Integer.parseInt(text[i][j].getText());
-                    
+                    this.maximos[i][j] = Integer.parseInt(text[i][j].getText());
                 }
             }
             
-            for(int i = 0; i < text2.length; i++) {
-                text2[i].setEditable(false);
+            for(int i = 0; i < this.text2.length; i++) {
+                this.text2[i].setEditable(false);
                 
                 //Pasar el valor contenido en el jTextField [i] a su respectiva ubicación [i] dentro
                 //del vector de recursos
-                recursos[i] = Integer.parseInt(text2[i].getText());
+                this.recursos[i] = Integer.parseInt(text2[i].getText());
             }
             
             //Validacion para que los valores maximos no superen la cantidad de tipos de recursos existentes
             //String para almacenar errores en la asignacion de maximos
             String msg = "";
             
-            for(int j = 0; j < recursos.length; j++){
-                for(int i = 0; i < maximos.length; i++){
-                    if(recursos[j] < maximos[i][j]){
+            for(int j = 0; j < this.recursos.length; j++){
+                for(int i = 0; i < this.maximos.length; i++){
+                    if(this.recursos[j] < this.maximos[i][j]){
                         msg = msg + "\n• El número de camiones asignados en la Ruta "+(j+1)+" para la Orden "+(i+1)+" supera el máximo disponible.";
                         check++;
                     }
@@ -263,56 +261,23 @@ public class MainView extends javax.swing.JFrame {
             //Si se consiguen errores en la cantidad de tipos de recurso asignados, se reportan los errores y se
             //vuelven a habilitar los campos, de lo contrario se prosigue con la ejecucion del algoritmo.
             if(check == 0){
-                
-                int a= getColumnas();   //Número de rutas que hay 
-                int b= getFilas();      //Número de ordenes que hay
-                Algoritmo banquero =  new Algoritmo(maximos, asignacion, recursos,a,b);
-              
-
-        //JTextField para rellenar el vector de recursos (camiones)
-        this.text2 = new JTextField[getColumnas()-1];
-        
-        //Formateo de los JTextFields dentro de un JPanel con etiquetas
-        for (int i = 0; i < 2; i++) {
-            for(int j = 0; j < getColumnas(); j++){
-                if(i==0){
-                    if(j==0){
-                        JLabel vacio = new JLabel(" ");
-                        jPanel2.add(vacio);
-                    } else {
-                        JLabel ruta = new JLabel("Ruta "+j);
-                        ruta.setFont(new java.awt.Font("Segoe UI Symbol", 1, 9));
-                        jPanel2.add(ruta);
-                    }
-                }else{
-                    if(j!=0){
-                        text2[j-1] = new JTextField("0");
-                        jPanel2.add(text2[j-1]);
-                    }else{
-                        JLabel camiones = new JLabel("Camiones");
-                        camiones.setFont(new java.awt.Font("Segoe UI Symbol", 1, 8));
-                        jPanel2.add(camiones);
-                    }
-                }
-            }
-        }
-        revalidate();
+                this.asignacion = this.maximos;
+                Algoritmo banquero =  new Algoritmo(this.maximos, this.asignacion, this.recursos);
             } else {
+                showMessageDialog(null,"Se han encontrado los siguientes errores:" + msg);
+                this.jButton1.setEnabled(true);
                 
-                showMessageDialog(null,"Por favor, ingrese nuevamente los valores asignados, pues se han encontrado los siguientes errores:" + msg);
-                jButton1.setEnabled(true);
-                
-                for(int i = 0; i < text.length; i++){
-                    for(int j = 0; j < text[0].length; j++){
-                        text[i][j].setEditable(true);
+                for(int i = 0; i < this.text.length; i++){
+                    for(int j = 0; j < this.text[0].length; j++){
+                        this.text[i][j].setEditable(true);
                     }
                 }
                 
-                for(int i = 0; i < text2.length; i++){
-                    text2[i].setEditable(true);
+                for(int i = 0; i < this.text2.length; i++){
+                    this.text2[i].setEditable(true);
                 }
-            }
-        }
+            }}
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void CloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CloseActionPerformed

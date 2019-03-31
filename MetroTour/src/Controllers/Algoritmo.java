@@ -2,35 +2,58 @@
 package Controllers;
 
 import java.util.concurrent.ThreadLocalRandom;
-
+import java.util.Arrays;
 
 public class Algoritmo {
 
-    private int maximos[][], asignacion[][];
-    private int recursos[], disponibles[];
+    private int maximos[][];
+    private int asignacion[][];
     private int necesarios[][];
-    private int numRutas;
-    private int numOrdenes;
+    private int recursos[];
+    private int disponibles[];
     
-    public Algoritmo(int maximos[][], int asignacion[][], int recursos[],int rutas, int ordenes) {
+    public Algoritmo(int maximos[][], int asignacion[][], int recursos[]) {
         
-        this.maximos = maximos;
-        this.asignacion = asignacion;
-        this.recursos = recursos;
-        this.disponibles = recursos;    //La matriz disponibles inicia siendo igual a la de disponibles
-        this.numRutas = rutas;
-        this.numOrdenes= ordenes;
-        this.necesarios=maximos;
-        
+        this.maximos = new int[maximos.length][maximos[0].length];
+        this.asignacion = new int [asignacion.length][asignacion[0].length];
+        this.necesarios = new int [asignacion.length][asignacion[0].length];
+        this.recursos = new int[recursos.length];
+        this.disponibles = new int[recursos.length];
         
         //Llenar matriz asignacion con numeros aleatorios
-        this.asignacion = llenarAsignacion(this.asignacion, this.maximos, this.disponibles);
+        //Repetir hasta estar en un estado seguro
         
-        //Actualizar la matriz de recursos disponibles
-        this.disponibles = actualizarDisponibles(this.asignacion, this.recursos); 
-        this.necesarios(this.asignacion,this.maximos);
-        esSeguro(this.numRutas,this.numOrdenes);
+      
+        boolean seguro = false;
 
+        while(!seguro){
+       
+            for(int i = 0; i < this.necesarios.length; i++){
+                for(int j = 0;  j < this.necesarios[0].length; j++){
+                    this.maximos[i][j] = maximos[i][j];
+                    this.asignacion[i][j] = asignacion[i][j];
+                    this.necesarios[i][j] = asignacion[i][j];
+                    this.recursos[j] = recursos[j];
+                    this.disponibles[j] = recursos[j];
+                }
+            }
+            
+            //Rellenar con numeros aleatoreos
+            this.asignacion = llenarAsignacion(this.asignacion, this.maximos, this.disponibles);
+            
+            //Actualizar la matriz de recursos disponibles
+            this.disponibles = actualizarDisp(this.asignacion, this.recursos);
+            
+            //Calcular el numero de recursos necesarios por orden
+            this.necesarios = calcularNecesarios(this.asignacion, this.maximos);
+            
+            //Determinar si existe un estado seguro
+            seguro = Revisar(this.necesarios, this.disponibles);
+            esSeguro();
+        }
+        
+      
+        
     }
     
     //Funcion que rellena la matriz asignacion con valores aleatorios. Los valores aleatorios no superaran la cantidad de recursos existentes
@@ -41,17 +64,19 @@ public class Algoritmo {
         //Variables para llenar la matriz asignacion
         int max, disp, random;
         int asignados[][] = asignacion;
+        int maxarr[][] = maximos;
+        int disparr[] = disponibles;
         
         for(int j = 0; j < asignacion[0].length; j++){
-            
-            disp = disponibles[j]; //Extraer la cantidad de tipo de recurso disponible
-            
+            //Extraer la cantidad de tipo de recurso disponible
+            disp = disparr[j];
+            System.out.println("b "+disp);
             for(int i = 0; i < asignacion.length; i++){
                 
                 if(disp > 0){ //Si la cantidad de tipo recurso disponibles es 0, asignar 0
                     
                     //Extraer valor maximo de tipo de recurso que requiere el proceso
-                    max = maximos[i][j];
+                    max = maxarr[i][j];
                     
                     //Si el proceso requiere mas recursos de los disponibles, limitar los recursos asignables a los disponibles
                         if(max > disp)
@@ -63,6 +88,8 @@ public class Algoritmo {
                     random = ThreadLocalRandom.current().nextInt(0, max + 1);
                     asignados[i][j] = random;
                     
+                    //System.out.println("as "+asignados[i][j]);
+                    
                     //Actualizar la cantidad de tipo de recurso disponible
                     disp = disp - random;
                 } 
@@ -71,34 +98,28 @@ public class Algoritmo {
                     asignados[i][j] = disp;
                 }
             }
+            
+            System.out.println("a "+disp);
         }
+        
+        for(int i = 0; i < this.necesarios.length; i++){
+                for(int k = 0; k < this.necesarios[0].length; k++){
+                   
+                    System.out.print(Arrays.deepToString(asignacion));
+                    System.out.print(Arrays.deepToString(necesarios));
+   
+                }
+            }
         
        
         return asignados;
     }
     
-    //Función que calcula la matriz de valores necesarios que se requieren
-    private int[][] necesarios(int asignacion[][], int maximos[][]) 
-    {
-        int necesarios[][]=maximos;
+    //Funcion que actualiza los valores del vector de tipo de recursos disponibles
+    private int[] actualizarDisp(int asignacion[][], int disponibles[]){
         
-        for (int i = 0; i < this.necesarios.length; i++) {
-            
-            for (int j = 0; j < this.necesarios[0].length; j++)
-            {
-                necesarios[i][j] = maximos[i][j] - asignacion[i][j];
-            }
-        }
-
-        return necesarios;
-    }
-
-    
-    
-   //Funcion que actualiza los valores del vector de tipo de recursos disponibles
-    private int[] actualizarDisponibles(int asignacion[][], int recursos[]){
-       
-        int update[] = recursos; //Vector auxiliar a ser actualizado
+        //Vector auxiliar a ser actualizado
+        int update[] = disponibles;
         
         //Proceso de actualizacion de vector
         for(int j = 0; j < update.length; j++){
@@ -111,42 +132,61 @@ public class Algoritmo {
         
         return update;
     }
-   
-   //Verificar si los recursos pueden ser asignados.
-   private boolean recursosAsignacion(int i) {
-       
- 
-        for (int j = 0; j < numRutas; j++) 
-        {
-            if (disponibles[j] < necesarios[i][j]) 
-            {
+    
+    private int[][] calcularNecesarios(int asig[][], int maxi[][]){
+        int needed[][] = maxi;
+        
+        for(int i = 0; i < asig.length; i++){
+            for(int j = 0; j < asig[0].length; j++){
+                needed[i][j] = maxi[i][j] - asig[i][j];
+                
+            }
+        }
+        
+        return needed;
+    }
+    
+    //Revisar si a un proceso se le pueden asignar sus recursos
+    private boolean Revisar(int need[][], int disp[]){
+        
+        for(int i = 0; i < need.length; i++){
+            for(int j = 0; j < disp.length; j++){
+                
+                if(disp[j] < need[i][j]){
+                    return false;
+                }
+            }
+        }
+        
+        return true;
+    }
+    
+    private boolean chequear(int i) {
+        //chequeando si todos los recursos para el proceso pueden ser asignados
+        for (int j = 0; j < necesarios[0].length; j++) {
+            if (disponibles[j] < necesarios[i][j]) {
                 return false;
             }
         }
 
         return true;
-    } 
-    
-    public void esSeguro(int numRutas, int numOrdenes) {
+    }
 
-        boolean seguro[] = new boolean[numRutas]; //Arreglo para indicar el orden de ejecución del estado seguro
+       
+ public void esSeguro() 
+{
+        boolean done[] = new boolean[maximos.length];
         int temp = 0;
 
-        while (temp < numOrdenes) 
-        {  
+        while (temp < maximos.length) {  
             boolean asignado = false;
-            
-            for (int i = 0; i < necesarios.length; i++) 
-            { 
-                if (!seguro[i] && recursosAsignacion(i)) {
-                    
-                    for (int k = 0; k < necesarios[0].length; k++) {
-
-                        this.disponibles[k] = this.disponibles[k] - necesarios[i][k] + maximos[i][k];
+            for (int i = 0; i < maximos.length; i++) {
+                if (!done[i] && chequear(i)) {  //intentando asignar
+                    for (int k = 0; k < maximos[0].length; k++) {
+                        disponibles[k] = disponibles[k] - necesarios[i][k] + maximos[i][k];
                     }
-                    
                     System.out.println("Proceso asignado : " + i);
-                    asignado = seguro[i] = true;
+                    asignado = done[i] = true;
                     temp++;
                 }
             }
@@ -154,35 +194,14 @@ public class Algoritmo {
                 break;  //si no esta asignado
             }
         }
-        
-        
-        if (temp == numOrdenes) //si todos los procesos estan asignados
+        if (temp == maximos.length) //si todos los procesos estan asignados
         {
             System.out.println("\nAsignado de forma segura");
-            
         } else {
             System.out.println("Todos los procesos se pueden asignar de forma segura");
         }
     }
 
-    public int[][] getAsignacion() {
-        return asignacion;
-    }
 
-    public int[] getDisponibles() {
-        return disponibles;
-    }
-
-    public int[][] getNecesarios() {
-        return necesarios;
-    }
-    
-   
-    
 }
-       
-    
-
-
-
 
