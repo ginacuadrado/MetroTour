@@ -29,6 +29,7 @@ public class Algoritmo {
         //Actualizar la matriz de recursos disponibles
         this.disponibles = actualizarDisponibles(this.asignacion, this.recursos); 
         this.necesarios(this.asignacion,this.maximos);
+        esSeguro(this.numRutas,this.numOrdenes);
 
     }
     
@@ -77,14 +78,13 @@ public class Algoritmo {
     }
     
     //Función que calcula la matriz de valores necesarios que se requieren
-   
     private int[][] necesarios(int asignacion[][], int maximos[][]) 
     {
         int necesarios[][]=maximos;
         
-        for (int i = 0; i < this.numOrdenes; i++) {
+        for (int i = 0; i < this.necesarios.length; i++) {
             
-            for (int j = 0; j < this.numRutas; j++)
+            for (int j = 0; j < this.necesarios[0].length; j++)
             {
                 necesarios[i][j] = maximos[i][j] - asignacion[i][j];
             }
@@ -129,20 +129,6 @@ public class Algoritmo {
     
     public void esSeguro(int numRutas, int numOrdenes) {
 
-        
-        
-        //Actualizar matriz de necesarios
-        //this.necesarios = necesarios(this.asignacion,this.maximos);
-        
-        for (int i=0;i<numOrdenes;i++)
-        {
-            for (int j=0;j<numRutas;j++)
-            {
-               
-                System.out.println(asignacion[i][j]);
-            }
-        }
-        /*
         boolean seguro[] = new boolean[numRutas]; //Arreglo para indicar el orden de ejecución del estado seguro
         int temp = 0;
 
@@ -150,11 +136,11 @@ public class Algoritmo {
         {  
             boolean asignado = false;
             
-            for (int i = 0; i < numOrdenes; i++) 
+            for (int i = 0; i < necesarios.length; i++) 
             { 
                 if (!seguro[i] && recursosAsignacion(i)) {
                     
-                    for (int k = 0; k < numRutas; k++) {
+                    for (int k = 0; k < necesarios[0].length; k++) {
 
                         this.disponibles[k] = this.disponibles[k] - necesarios[i][k] + maximos[i][k];
                     }
@@ -176,7 +162,7 @@ public class Algoritmo {
             
         } else {
             System.out.println("Todos los procesos se pueden asignar de forma segura");
-        }*/
+        }
     }
 
     public int[][] getAsignacion() {
