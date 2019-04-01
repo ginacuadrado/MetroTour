@@ -7,13 +7,15 @@ import java.util.Arrays;
 
 public class Algoritmo {
 
+    //Definición de las matrices y vectores a utilizar
     private int maximos[][];
     private int asignacion[][];
     private int necesarios[][];
     private int recursos[];
     private int disponibles[];
     
-    public Algoritmo(int maximos[][], int asignacion[][], int recursos[]) {
+    public Algoritmo(int maximos[][], int asignacion[][], int recursos[]) 
+    {
         
         this.maximos = new int[maximos.length][maximos[0].length];
         this.asignacion = new int [asignacion.length][asignacion[0].length];
@@ -24,7 +26,6 @@ public class Algoritmo {
         //Llenar matriz asignacion con numeros aleatorios
         //Repetir hasta estar en un estado seguro
         
-      
         boolean seguro = false;
 
         while(!seguro){
@@ -38,6 +39,7 @@ public class Algoritmo {
                     this.disponibles[j] = recursos[j];
                 }
             }
+            
             
             //Rellenar con numeros aleatoreos
             this.asignacion = llenarAsignacion(this.asignacion, this.maximos, this.disponibles);
@@ -57,18 +59,11 @@ public class Algoritmo {
                 MainView.text3[i][j].setText(""+this.asignacion[i][j]);
             }
         }
-        /*
-        System.out.println("Disponibles");
-        System.out.println(Arrays.toString(disponibles));
-        
-        System.out.println("Necesarios");
-        System.out.println(Arrays.deepToString(this.necesarios).replace("], ", "]\n"));
-        */
+     
         esSeguro();
     }
     
     //Funcion que rellena la matriz asignacion con valores aleatorios. Los valores aleatorios no superaran la cantidad de recursos existentes
-    
     private int[][] llenarAsignacion(int asignacion[][], int maximos[][], int disponibles[])
     {
         
@@ -121,8 +116,7 @@ public class Algoritmo {
         //Proceso de actualizacion de vector
         for(int j = 0; j < update.length; j++){
             for(int i = 0; i < asignacion.length; i++){
-                //Restar el valor almacenado en cada proceso para cada tipo de
-                //recurso respectivo
+                //Restar el valor almacenado en cada proceso para cada tipo de recurso respectivo
                 update[j] = recursos[j] - asignacion[i][j];
             }
         }
@@ -166,7 +160,7 @@ public class Algoritmo {
     
     //Revisar si a un proceso especifico se le pueden asignar sus recursos
     private boolean chequear(int i) {
-        //chequeando si todos los recursos para el proceso pueden ser asignados
+        
         for (int j = 0; j < necesarios[0].length; j++) {
             if (disponibles[j] < necesarios[i][j]) {
                 return false;
@@ -176,7 +170,7 @@ public class Algoritmo {
         return true;
     }
 
-       
+ //Función que calcula el estado seguro del proceso      
  public void esSeguro() 
 {
         boolean done[] = new boolean[maximos.length];

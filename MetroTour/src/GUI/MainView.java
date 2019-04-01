@@ -139,7 +139,9 @@ public class MainView extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
         Close = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
@@ -148,7 +150,7 @@ public class MainView extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocation(new java.awt.Point(50, 50));
-        setMinimumSize(new java.awt.Dimension(1000, 550));
+        setMinimumSize(new java.awt.Dimension(1050, 550));
         setUndecorated(true);
         setResizable(false);
         getContentPane().setLayout(null);
@@ -168,7 +170,7 @@ public class MainView extends javax.swing.JFrame {
         jButton2.setBackground(new java.awt.Color(255, 204, 0));
         jButton2.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         jButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jButton2.setText("REPETIR");
+        jButton2.setText("REPETIR PROCESO");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -180,7 +182,7 @@ public class MainView extends javax.swing.JFrame {
         jLabel10.setFont(new java.awt.Font("Segoe UI Symbol", 1, 14)); // NOI18N
         jLabel10.setText("camiones aleatoriamente.");
         getContentPane().add(jLabel10);
-        jLabel10.setBounds(370, 300, 300, 70);
+        jLabel10.setBounds(370, 300, 270, 70);
 
         jLabel11.setFont(new java.awt.Font("Segoe UI Symbol", 1, 14)); // NOI18N
         jLabel11.setText("Nota:");
@@ -207,13 +209,14 @@ public class MainView extends javax.swing.JFrame {
         getContentPane().add(orden);
         orden.setBounds(220, 480, 580, 70);
 
-        jLabel9.setFont(new java.awt.Font("Segoe UI Symbol", 1, 14)); // NOI18N
-        jLabel9.setText("Orden de ejecución:");
+        jLabel9.setBackground(new java.awt.Color(255, 204, 0));
+        jLabel9.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
+        jLabel9.setText("Orden de ejecución obtenido:");
         getContentPane().add(jLabel9);
-        jLabel9.setBounds(440, 420, 150, 70);
+        jLabel9.setBounds(390, 420, 240, 70);
 
         jLabel8.setFont(new java.awt.Font("Segoe UI Symbol", 1, 14)); // NOI18N
-        jLabel8.setText("Asignación aleatorea inicial de camiones");
+        jLabel8.setText("para obtener el orden de ejecución.");
         getContentPane().add(jLabel8);
         jLabel8.setBounds(670, 180, 330, 20);
 
@@ -231,10 +234,20 @@ public class MainView extends javax.swing.JFrame {
         getContentPane().add(jLabel7);
         jLabel7.setBounds(30, 160, 330, 20);
 
+        jLabel15.setFont(new java.awt.Font("Segoe UI Symbol", 1, 14)); // NOI18N
+        jLabel15.setText("Asignación aleatoria inicial de camiones");
+        getContentPane().add(jLabel15);
+        jLabel15.setBounds(670, 160, 330, 20);
+
         jLabel6.setFont(new java.awt.Font("Segoe UI Symbol", 1, 14)); // NOI18N
         jLabel6.setText("Asigne los camiones totales por cada ruta:");
         getContentPane().add(jLabel6);
         jLabel6.setBounds(30, 40, 330, 20);
+
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/gabarro22795.gif"))); // NOI18N
+        jLabel3.setText("jLabel3");
+        getContentPane().add(jLabel3);
+        jLabel3.setBounds(380, 430, 250, 50);
 
         Close.setBackground(new java.awt.Color(255, 204, 0));
         Close.setText("Cerrar");
@@ -244,7 +257,7 @@ public class MainView extends javax.swing.JFrame {
             }
         });
         getContentPane().add(Close);
-        Close.setBounds(910, 10, 80, 30);
+        Close.setBounds(950, 10, 80, 30);
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 204));
         jPanel2.setLayout(new java.awt.GridLayout(2, getColumnas()));
@@ -259,7 +272,7 @@ public class MainView extends javax.swing.JFrame {
         jPanel3.setBackground(new java.awt.Color(255, 255, 204));
         jPanel3.setLayout(new java.awt.GridLayout(getFilas(), getColumnas()));
         getContentPane().add(jPanel3);
-        jPanel3.setBounds(670, 210, 330, 250);
+        jPanel3.setBounds(670, 210, 320, 250);
 
         zBackground3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Background.jpg"))); // NOI18N
         getContentPane().add(zBackground3);
@@ -378,6 +391,9 @@ public class MainView extends javax.swing.JFrame {
     }//GEN-LAST:event_CloseActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        
+        //Botón que permite reiniciar el proceso
+        
         this.jButton1.setEnabled(true);
                 
                 for(int i = 0; i < this.text.length; i++){
@@ -450,6 +466,8 @@ public class MainView extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
