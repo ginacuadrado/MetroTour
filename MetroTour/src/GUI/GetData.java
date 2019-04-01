@@ -88,9 +88,9 @@ public class GetData extends javax.swing.JFrame {
         getContentPane().add(jLabel5);
         jLabel5.setBounds(60, 250, 330, 20);
 
-        jLabel3.setText("(Mínimo 2, Máximo 6)");
+        jLabel3.setText("(Mínimo 2, Máximo 4)");
         getContentPane().add(jLabel3);
-        jLabel3.setBounds(60, 320, 160, 16);
+        jLabel3.setBounds(60, 320, 160, 14);
 
         Close.setBackground(new java.awt.Color(255, 204, 0));
         Close.setText("Cerrar");
@@ -102,9 +102,9 @@ public class GetData extends javax.swing.JFrame {
         getContentPane().add(Close);
         Close.setBounds(520, 0, 80, 30);
 
-        jLabel4.setText("(Mínimo 2, Máximo 6)");
+        jLabel4.setText("(Mínimo 2, Máximo 4)");
         getContentPane().add(jLabel4);
-        jLabel4.setBounds(60, 270, 160, 16);
+        jLabel4.setBounds(60, 270, 160, 14);
 
         Background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Background.jpg"))); // NOI18N
         Background.setText("jLabel7");
@@ -146,9 +146,9 @@ public class GetData extends javax.swing.JFrame {
                 int b = Integer.parseInt(pedidos);
                 
                 //Validación mínimo 2 y máximo 6 de cada campo
-                if(a<=1||a>7||b>7||b<=1)
+                if(a<=1||a>4||b>4||b<=1)
                 {
-                    showMessageDialog(null,"Por favor solo ingrese datos numéricos enteros entre 1 y 6 en cada campo");
+                    showMessageDialog(null,"Por favor solo ingrese datos numéricos enteros entre 2 y 4 en cada campo");
                     RutasEmpresa.setText(null);
                     PedidosRealizar.setText(null); 
                 }

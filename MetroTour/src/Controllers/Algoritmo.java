@@ -1,6 +1,7 @@
 
 package Controllers;
 
+import GUI.MainView;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.Arrays;
 
@@ -49,11 +50,21 @@ public class Algoritmo {
             
             //Determinar si existe un estado seguro
             seguro = Revisar(this.necesarios, this.disponibles);
-            esSeguro();
         }
         
-      
+        for(int i = 0; i < this.asignacion.length; i++){
+            for(int j= 0; j < this.asignacion[0].length; j++){
+                MainView.text3[i][j].setText(""+this.asignacion[i][j]);
+            }
+        }
+        /*
+        System.out.println("Disponibles");
+        System.out.println(Arrays.toString(disponibles));
         
+        System.out.println("Necesarios");
+        System.out.println(Arrays.deepToString(this.necesarios).replace("], ", "]\n"));
+        */
+        esSeguro();
     }
     
     //Funcion que rellena la matriz asignacion con valores aleatorios. Los valores aleatorios no superaran la cantidad de recursos existentes
@@ -70,7 +81,6 @@ public class Algoritmo {
         for(int j = 0; j < asignacion[0].length; j++){
             //Extraer la cantidad de tipo de recurso disponible
             disp = disparr[j];
-            System.out.println("b "+disp);
             for(int i = 0; i < asignacion.length; i++){
                 
                 if(disp > 0){ //Si la cantidad de tipo recurso disponibles es 0, asignar 0
@@ -98,20 +108,7 @@ public class Algoritmo {
                     asignados[i][j] = disp;
                 }
             }
-            
-            System.out.println("a "+disp);
         }
-        
-        for(int i = 0; i < this.necesarios.length; i++){
-                for(int k = 0; k < this.necesarios[0].length; k++){
-                   
-                    System.out.print(Arrays.deepToString(asignacion));
-                    System.out.print(Arrays.deepToString(necesarios));
-   
-                }
-            }
-        
-       
         return asignados;
     }
     
@@ -133,34 +130,41 @@ public class Algoritmo {
         return update;
     }
     
+    //Calculo de recursos necesarios para ejecutar una orden
     private int[][] calcularNecesarios(int asig[][], int maxi[][]){
-        int needed[][] = maxi;
+        int needed[][] = new int[maxi.length][maxi[0].length];
         
         for(int i = 0; i < asig.length; i++){
             for(int j = 0; j < asig[0].length; j++){
                 needed[i][j] = maxi[i][j] - asig[i][j];
-                
             }
         }
         
         return needed;
     }
     
-    //Revisar si a un proceso se le pueden asignar sus recursos
+    //Revisar si a algun proceso se le pueden asignar sus recursos
     private boolean Revisar(int need[][], int disp[]){
+        
+        int count = 0;
         
         for(int i = 0; i < need.length; i++){
             for(int j = 0; j < disp.length; j++){
                 
                 if(disp[j] < need[i][j]){
-                    return false;
+                    count++;
                 }
             }
         }
         
-        return true;
+        if(count >= ((need.length/2)+1)){
+            return false;
+        } else {
+            return true;
+        }
     }
     
+    //Revisar si a un proceso especifico se le pueden asignar sus recursos
     private boolean chequear(int i) {
         //chequeando si todos los recursos para el proceso pueden ser asignados
         for (int j = 0; j < necesarios[0].length; j++) {
@@ -177,23 +181,46 @@ public class Algoritmo {
 {
         boolean done[] = new boolean[maximos.length];
         int temp = 0;
-
-        while (temp < maximos.length) {  
-            boolean asignado = false;
+        String msg = "  ";
+        
+        while (temp < maximos.length) {
             for (int i = 0; i < maximos.length; i++) {
                 if (!done[i] && chequear(i)) {  //intentando asignar
                     for (int k = 0; k < maximos[0].length; k++) {
-                        disponibles[k] = disponibles[k] - necesarios[i][k] + maximos[i][k];
+                        System.out.println("antes");
+                        System.out.println(Arrays.toString(disponibles));
+                        System.out.println(Arrays.deepToString(asignacion).replace("], ", "]\n"));
+                        System.out.println(Arrays.deepToString(necesarios).replace("], ", "]\n"));
+                        
+                        asignacion[i][k] = asignacion[i][k] + necesarios[i][k];
+                        disponibles[k] = disponibles[k] - necesarios[i][k];
+                        necesarios[i][k] = necesarios[i][k] - necesarios[i][k];
+                        
+                        System.out.println("Asignacion");
+                        System.out.println(Arrays.toString(disponibles));
+                        System.out.println(Arrays.deepToString(asignacion).replace("], ", "]\n"));
+                        System.out.println(Arrays.deepToString(necesarios).replace("], ", "]\n"));
+                        
+                        
+                        
+                    }
+                    System.out.println("despues");
+                    for(int j = 0; j < maximos[0].length; j++){
+                        disponibles[j] = disponibles[j] + maximos[i][j];
+                        asignacion[i][j] = asignacion[i][j] - asignacion[i][j];
+                        System.out.println(Arrays.toString(disponibles));
+                        System.out.println(Arrays.deepToString(asignacion).replace("], ", "]\n"));
                     }
                     System.out.println("Proceso asignado : " + i);
-                    asignado = done[i] = true;
+                    msg = msg + "Orden " + (i+1) + "  ";
+                    done[i] = true;
                     temp++;
-                }
-            }
-            if (!asignado) {
-                break;  //si no esta asignado
+                }         
             }
         }
+        
+        MainView.orden.setText(msg);
+        
         if (temp == maximos.length) //si todos los procesos estan asignados
         {
             System.out.println("\nAsignado de forma segura");

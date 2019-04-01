@@ -10,6 +10,7 @@ import javax.swing.JLabel;
 import static javax.swing.JOptionPane.showMessageDialog;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import static javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER;
 
 /**
  *
@@ -22,6 +23,7 @@ public class MainView extends javax.swing.JFrame {
     private int asignacion[][];
     public static JTextField text[][];
     public static JTextField text2[];
+    public static JTextField text3[][];
     
     public MainView(int recursos[], int maximos[][]) 
     {
@@ -34,6 +36,7 @@ public class MainView extends javax.swing.JFrame {
         
         //JTextFields para rellenar la matriz de requerimientos máximos
         this.text = new JTextField[getFilas()-1][getColumnas()-1];
+        this.text3 = new JTextField[getFilas()-1][getColumnas()-1];
               
         //Formateo de los JTextFields dentro de un JPanel con sus respectivas etiquetas
         for (int i = 0; i < getFilas(); i++) {
@@ -55,6 +58,31 @@ public class MainView extends javax.swing.JFrame {
                         JLabel orden = new JLabel("Orden "+i);
                         orden.setFont(new java.awt.Font("Segoe UI Symbol", 1, 9));
                         jPanel1.add(orden);
+                    }
+                }
+            }
+        }
+        
+        for (int i = 0; i < getFilas(); i++) {
+            for(int j = 0; j < getColumnas(); j++){
+                if(i==0){
+                    if(j==0){
+                        JLabel vacio = new JLabel(" ");
+                        jPanel3.add(vacio);
+                    } else {
+                        JLabel ruta = new JLabel("Ruta "+j);
+                        ruta.setFont(new java.awt.Font("Segoe UI Symbol", 1, 9));
+                        jPanel3.add(ruta);
+                    }
+                }else{
+                    if(j!=0){
+                        text3[i-1][j-1] = new JTextField("0");
+                        text3[i-1][j-1].setEditable(false);
+                        jPanel3.add(text3[i-1][j-1]);
+                    }else{
+                        JLabel orden = new JLabel("Orden "+i);
+                        orden.setFont(new java.awt.Font("Segoe UI Symbol", 1, 9));
+                        jPanel3.add(orden);
                     }
                 }
             }
@@ -87,6 +115,8 @@ public class MainView extends javax.swing.JFrame {
                 }
             }
         }
+        
+        
         revalidate();
     }
     
@@ -97,6 +127,15 @@ public class MainView extends javax.swing.JFrame {
     private void initComponents() {
 
         jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        orden = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
@@ -108,10 +147,9 @@ public class MainView extends javax.swing.JFrame {
         zBackground3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setLocation(new java.awt.Point(100, 100));
-        setMinimumSize(new java.awt.Dimension(1000, 600));
+        setLocation(new java.awt.Point(50, 50));
+        setMinimumSize(new java.awt.Dimension(1000, 550));
         setUndecorated(true);
-        setPreferredSize(new java.awt.Dimension(1000, 600));
         setResizable(false);
         getContentPane().setLayout(null);
 
@@ -125,7 +163,59 @@ public class MainView extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButton1);
-        jButton1.setBounds(400, 300, 210, 25);
+        jButton1.setBounds(90, 480, 210, 25);
+
+        jButton2.setBackground(new java.awt.Color(255, 204, 0));
+        jButton2.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
+        jButton2.setForeground(new java.awt.Color(255, 255, 255));
+        jButton2.setText("REPETIR");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton2);
+        jButton2.setBounds(710, 480, 210, 25);
+
+        jLabel10.setFont(new java.awt.Font("Segoe UI Symbol", 1, 14)); // NOI18N
+        jLabel10.setText("camiones aleatoriamente.");
+        getContentPane().add(jLabel10);
+        jLabel10.setBounds(370, 300, 300, 70);
+
+        jLabel11.setFont(new java.awt.Font("Segoe UI Symbol", 1, 14)); // NOI18N
+        jLabel11.setText("Nota:");
+        getContentPane().add(jLabel11);
+        jLabel11.setBounds(370, 220, 150, 70);
+
+        jLabel12.setFont(new java.awt.Font("Segoe UI Symbol", 1, 14)); // NOI18N
+        jLabel12.setText("Si hay muchas órdenes y dependiendo de");
+        getContentPane().add(jLabel12);
+        jLabel12.setBounds(370, 240, 300, 70);
+
+        jLabel13.setFont(new java.awt.Font("Segoe UI Symbol", 1, 14)); // NOI18N
+        jLabel13.setText("la cantidad de camiones disponibles, es");
+        getContentPane().add(jLabel13);
+        jLabel13.setBounds(370, 260, 300, 70);
+
+        jLabel14.setFont(new java.awt.Font("Segoe UI Symbol", 1, 14)); // NOI18N
+        jLabel14.setText("posible que se tarde un poco en asignar");
+        getContentPane().add(jLabel14);
+        jLabel14.setBounds(370, 280, 300, 70);
+
+        orden.setFont(new java.awt.Font("Segoe UI Symbol", 1, 14)); // NOI18N
+        orden.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        getContentPane().add(orden);
+        orden.setBounds(220, 480, 580, 70);
+
+        jLabel9.setFont(new java.awt.Font("Segoe UI Symbol", 1, 14)); // NOI18N
+        jLabel9.setText("Orden de ejecución:");
+        getContentPane().add(jLabel9);
+        jLabel9.setBounds(440, 420, 150, 70);
+
+        jLabel8.setFont(new java.awt.Font("Segoe UI Symbol", 1, 14)); // NOI18N
+        jLabel8.setText("Asignación aleatorea inicial de camiones");
+        getContentPane().add(jLabel8);
+        jLabel8.setBounds(670, 180, 330, 20);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/LogoMini.png"))); // NOI18N
         getContentPane().add(jLabel1);
@@ -134,17 +224,17 @@ public class MainView extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Segoe UI Symbol", 1, 14)); // NOI18N
         jLabel5.setText("necesarios para completar la orden:");
         getContentPane().add(jLabel5);
-        jLabel5.setBounds(30, 50, 330, 20);
+        jLabel5.setBounds(30, 180, 330, 20);
 
         jLabel7.setFont(new java.awt.Font("Segoe UI Symbol", 1, 14)); // NOI18N
         jLabel7.setText("Asigne cantidad de camiones por ruta ");
         getContentPane().add(jLabel7);
-        jLabel7.setBounds(30, 30, 330, 20);
+        jLabel7.setBounds(30, 160, 330, 20);
 
         jLabel6.setFont(new java.awt.Font("Segoe UI Symbol", 1, 14)); // NOI18N
         jLabel6.setText("Asigne los camiones totales por cada ruta:");
         getContentPane().add(jLabel6);
-        jLabel6.setBounds(640, 140, 330, 20);
+        jLabel6.setBounds(30, 40, 330, 20);
 
         Close.setBackground(new java.awt.Color(255, 204, 0));
         Close.setText("Cerrar");
@@ -159,21 +249,21 @@ public class MainView extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(255, 255, 204));
         jPanel2.setLayout(new java.awt.GridLayout(2, getColumnas()));
         getContentPane().add(jPanel2);
-        jPanel2.setBounds(640, 170, 330, 70);
+        jPanel2.setBounds(30, 70, 330, 70);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 204));
         jPanel1.setLayout(new java.awt.GridLayout(getFilas(), getColumnas()));
         getContentPane().add(jPanel1);
-        jPanel1.setBounds(30, 80, 330, 250);
+        jPanel1.setBounds(30, 210, 330, 250);
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 204));
         jPanel3.setLayout(new java.awt.GridLayout(getFilas(), getColumnas()));
         getContentPane().add(jPanel3);
-        jPanel3.setBounds(90, 370, 330, 250);
+        jPanel3.setBounds(670, 210, 330, 250);
 
         zBackground3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Background.jpg"))); // NOI18N
         getContentPane().add(zBackground3);
-        zBackground3.setBounds(20, -170, 1290, 930);
+        zBackground3.setBounds(10, -180, 1290, 930);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -287,6 +377,22 @@ public class MainView extends javax.swing.JFrame {
             System.exit(n);
     }//GEN-LAST:event_CloseActionPerformed
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        this.jButton1.setEnabled(true);
+                
+                for(int i = 0; i < this.text.length; i++){
+                    for(int j = 0; j < this.text[0].length; j++){
+                        this.text[i][j].setEditable(true);
+                    }
+                }
+                
+                for(int i = 0; i < this.text2.length; i++){
+                    this.text2[i].setEditable(true);
+                }
+                
+                orden.setText("");
+    }//GEN-LAST:event_jButton2ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -337,13 +443,22 @@ public class MainView extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Close;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    public static javax.swing.JLabel orden;
     private javax.swing.JLabel zBackground3;
     // End of variables declaration//GEN-END:variables
 }
